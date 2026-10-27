@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Painel RoboCoin</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Tela de Bloqueio por Senha -->
+    <div id="tela-senha" class="lock-screen">
+      <div class="lock-card">
+        <span class="brand-mark" aria-hidden="true">🔒</span>
+        <h2>Área Restrita do Professor</h2>
+        <p>Digite a senha de acesso ao RoboCoin.</p>
+        <form id="form-senha">
+          <input
+            type="password"
+            id="campo-senha"
+            placeholder="Digite a senha!"
+            inputmode="numeric"
+            required
+          />
+          <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+        </form>
+        <p id="erro-senha" class="error-msg" hidden>Senha incorreta! Tente novamente.</p>
+      </div>
+    </div>
+
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">🪙</span>
+          <div>
+            <p class="brand-kicker">CkCoins · Robótica</p>
+            <h1>Painel RoboCoin</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-danger-ghost" id="btn-excluir-selecionados" hidden>
+            Excluir Selecionados (<span id="contador-selecionados">0</span>)
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-novo-aluno">
+            + Novo Aluno
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="summary" aria-live="polite">
+          <article class="stat">
+            <span class="stat-label">Alunos</span>
+            <strong id="stat-alunos">0</strong>
+          </article>
+          <article class="stat">
+            <span class="stat-label">RoboCoins em circulação</span>
+            <strong id="stat-total">0</strong>
+          </article>
+        </section>
+
+        <section class="grid" id="lista-alunos" aria-label="Alunos cadastrados"></section>
+        <p class="empty" id="estado-vazio" hidden>Nenhum aluno cadastrado ainda.</p>
+      </main>
+    </div>
+
+    <dialog class="modal" id="modal-aluno">
+      <form method="dialog" class="modal-card" id="form-aluno">
+        <header>
+          <h2>Novo aluno</h2>
+          <p>Cadastre o nome e a turma para começar a pontuar.</p>
+        </header>
+        <label>
+          Nome do Aluno
+          <input type="text" name="nome" id="campo-nome" required maxlength="80" placeholder="Ex.: Ana Silva" />
+        </label>
+        <label>
+          Turma / Horário
+          <input
+            type="text"
+            name="turma"
+            id="campo-turma"
+            required
+            maxlength="80"
+            placeholder="Ex.: Terça · 14h"
+          />
+        </label>
+        <footer class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="btn-cancelar-aluno">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar aluno</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="modal-painel">
+      <div class="modal-card painel">
+        <header>
+          <h2 id="painel-nome">Aluno</h2>
+          <p id="painel-turma">Turma</p>
+        </header>
+        
+        <div class="saldo-destaque">
+          <span class="coin" aria-hidden="true">🪙</span>
+          <div>
+            <span class="stat-label">Saldo atual</span>
+            <strong id="painel-saldo">0</strong>
+          </div>
+        </div>
+
+        <!-- Ajuste Manual (+ / -) -->
+        <div class="ajuste-manual">
+          <span class="stat-label">Ajuste rápido de pontos</span>
+          <div class="botoes-ajuste">
+            <button type="button" class="btn btn-ajuste" data-ajuste="-10">-10</button>
+            <button type="button" class="btn btn-ajuste" data-ajuste="-5">-5</button>
+            <button type="button" class="btn btn-ajuste" data-ajuste="+5">+5</button>
+            <button type="button" class="btn btn-ajuste" data-ajuste="+10">+10</button>
+          </div>
+        </div>
+
+        <!-- Checklist de Atividades -->
+        <fieldset class="checklist">
+          <legend>Atividades da aula</legend>
+          <label class="check-item">
+            <input type="checkbox" data-atividade="montagem" />
+            <span>Montagem do Robô <em>+10 RoboCoins</em></span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" data-atividade="programacao" />
+            <span>Programação e Teste <em>+10 RoboCoins</em></span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" data-atividade="organizacao" />
+            <span>Organização do Kit e Bancada <em>+10 RoboCoins</em></span>
+          </label>
+        </fieldset>
+
+        <footer class="modal-actions">
+          <button type="button" class="btn btn-success" id="btn-confirmar-aula">Confirmar Aula</button>
+        </footer>
+        <button type="button" class="btn btn-ghost btn-full" id="btn-fechar-painel">Fechar painel</button>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
